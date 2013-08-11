@@ -1,6 +1,6 @@
 <?php
 
-class NGTodoControllersAjax extends NGTodoControllersDisplay {
+class NGTodoControllersAdd extends NGTodoControllersDisplay {
 
 	function execute() {
 
@@ -15,6 +15,7 @@ class NGTodoControllersAjax extends NGTodoControllersDisplay {
 		$layoutName = $app->input->getWord('layout', 'default');
 
 		$app->input->set('view', $viewName);
+		$app->input->set('table', $viewName);
 
 		// Register the layout paths for the view
 		$paths = new SplPriorityQueue;
@@ -28,9 +29,24 @@ class NGTodoControllersAjax extends NGTodoControllersDisplay {
 			$modelClass = 'NGTodoModelsDefault';
 		}
 
+		//initialise model
 		$model = new $modelClass();
 
-		$data = $model->listItems();
+		$data = array();
+
+		//get the JSON data sent by angular js controllers. You cannot use the regular input getting methods
+		//because they do not support getting the JSON output.
+		$input = new JInputJSON();
+		$json = $input->getRaw();
+		$post = json_decode($json);
+
+		if($row = $model->store($post)) {
+			$data['success'] = 1;
+			$data['msg'] = JText::_('COM_NGTODO_PROJECT_ADD_SUCCESS');
+		} else {
+			$data['success'] = 0;
+			$data['msg'] = JText::_('COM_NGTODO_PROJECT_ADD_FAILED');
+		}
 
 		//for better security, add a prefix before echoing
 		$prefix =")]}',\n";

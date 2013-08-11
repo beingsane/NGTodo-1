@@ -20,8 +20,11 @@ class NGTodoModelsDefault extends JModelBase
 
   public function store($data=null)
   {
-    $data = $data ? $data : JRequest::get('post');
-    $row = JTable::getInstance($data['table'],'Table');
+
+  	$app = JFactory::getApplication();
+    $data = $data ? $data : $app->input->getArray($_POST);
+
+   	$row = JTable::getInstance($app->input->get('table'),'Table');
 
     $date = date("Y-m-d H:i:s");
 

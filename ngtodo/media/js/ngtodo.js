@@ -1,23 +1,32 @@
-function TodoCtrl($scope, $http, $templateCache) {
-
-	// do an ajax request to load the todo list
-	$http({
-		method : 'GET',
-		url : 'index.php?option=com_ngtodo&controller=ajax&view=display'
-	}).success(function(data, status, headers, config) {		
-		$scope.todos = data; 
-		// this callback will be called asynchronously
-		// when the response is available
-	}).error(function(data, status, headers, config) {
-		// called asynchronously if an error occurs
-		// or server returns response with an error status.
-	});
+function TodoCtrl($scope, $http, $cookieStore, $templateCache) {
+	
+	var project_id = $cookieStore.get('project_id');
+	$scope.task_project_id = project_id;
+	
+	$scope.$on('handleBroadcast', function(event, args) {
+		$scope.todos= args.ptasks;
+		project_id = args.project_id;		
+		$scope.task_project_id = project_id;
+    });
 
 	$scope.addTodo = function() {
-		$scope.todos.push({
-			text : $scope.todoText,
-			done : false
+		var project_id = $cookieStore.get('project_id');
+		$scope.task_project_id = project_id;		
+		
+		$http({
+			method : 'POST',
+			url : 'index.php?option=com_ngtodo&controller=add&view=tasks',			
+			data: {task_name: $scope.todoText, project_id:project_id},				
+		 	headers: {'Content-Type': 'application/json'}
+		}).success(function(data, status, headers, config) {		
+			
+			// this callback will be called asynchronously
+			// when the response is available
+		}).error(function(data, status, headers, config) {
+			// called asynchronously if an error occurs
+			// or server returns response with an error status.
 		});
+		
 		$scope.todoText = '';
 	};
 

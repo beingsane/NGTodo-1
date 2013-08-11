@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+.ngtodo h3 {	
+	color: #DD4B39;
+}
+
+.ngtodo li {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 14px;	
+}
+
+.ngtodo li:hover {
+cursor: pointer;
+background: #E4E4E4;	
+}

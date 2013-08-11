@@ -9,9 +9,11 @@ class NGTodoHelpersHtml {
 		$document = JFactory::getDocument();
 		//$document->addStyleSheet(JUri::root(true).'/media/ngtodo/css/bootstrap.css');
 		$document->addStyleSheet(JUri::root(true).'/media/ngtodo/css/bootstrap-glyphicons.css');
+		$document->addStyleSheet(JUri::root(true).'/media/ngtodo/css/ngtodo.css');
 
 		//script
 		$document->addScript(JUri::root(true).'/media/ngtodo/js/angular.js');
+		$document->addScript(JUri::root(true).'/media/ngtodo/js/angularjs.cookies.js');
 		$document->addScript(JUri::root(true).'/media/ngtodo/js/ngboot.js');
 
 	}

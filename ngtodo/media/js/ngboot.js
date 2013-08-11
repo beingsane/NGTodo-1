@@ -1,6 +1,9 @@
 window.onload = function() {
 	var $rootElement = angular.element(window.document);
-	var modules = [ 'ng', function($provide) {
+	var modules = [ 'ng',
+	                'ngCookies',
+	                'myApp',
+	                function($provide) {
 		$provide.value('$rootElement', $rootElement);
 	} ];
 
