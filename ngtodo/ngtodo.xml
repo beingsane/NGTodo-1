@@ -26,6 +26,12 @@
 <filename>ngtodo.php</filename>
 </files>
 
+ <media destination="ngtodo" folder="media">
+		<folder>css</folder>
+		<folder>js</folder>
+		<folder>fonts</folder>
+		<filename>index.html</filename>		
+</media>
 
 <languages folder="site">
 <language tag="en-GB">languages/en-GB/en-GB.com_ngtodo.ini</language>
